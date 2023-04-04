@@ -1,9 +1,22 @@
+using ExifLibrary;
+using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
+
 var builder = WebApplication.CreateBuilder(args);
+
+string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(o => o.AddPolicy(MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("https://localhost:44420")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                      }));
 
 var app = builder.Build();
 
@@ -14,6 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
 var summaries = new[]
@@ -34,6 +48,24 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+app.MapPut("/uploadpictures", async (HttpRequest fileReq) =>
+{
+    var file = fileReq.Form.Files[0];
+    if (file == null || file.Length == 0)
+    {
+        return;
+    }
+
+    using (var memoryStream = new MemoryStream())
+    {
+        await file.CopyToAsync(memoryStream);
+        var img = ImageFile.FromStream(memoryStream);
+
+        var p = img.Properties.Get<PNGTimeStamp>(ExifTag.PNGTimeStamp);
+    }
+})
+    .WithName("UploadFiles");
 
 app.Run();
 

@@ -7,6 +7,7 @@
     <RootNamespace>picturedatabase_api</RootNamespace>
     <UserSecretsId>2fa9ff15-e24b-4ab2-87d3-cec35b35dcac</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileRunArgument></DockerfileRunArgument>
   </PropertyGroup>
 
   <ItemGroup>

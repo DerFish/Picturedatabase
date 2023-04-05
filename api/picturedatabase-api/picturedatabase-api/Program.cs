@@ -1,6 +1,7 @@
 using ExifLibrary;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
+using static System.Environment;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,25 +31,6 @@ if (app.Environment.IsDevelopment())
 app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateTime.Now.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
 app.MapPut("/uploadpictures", async (HttpRequest fileReq) =>
 {
     var file = fileReq.Form.Files[0];
@@ -62,14 +44,16 @@ app.MapPut("/uploadpictures", async (HttpRequest fileReq) =>
         await file.CopyToAsync(memoryStream);
         var img = ImageFile.FromStream(memoryStream);
 
-        var p = img.Properties.Get<PNGTimeStamp>(ExifTag.PNGTimeStamp);
+        var b = img.Properties.Get<ExifAscii>(ExifTag.CameraOwnerName);
+        foreach (var property in img.Properties)
+        {
+            Console.WriteLine(property.Name);
+        }
+        var path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)+ Path.DirectorySeparatorChar + "picturedb" + Path.DirectorySeparatorChar + file.Name + ".jpg";
+        Console.WriteLine($"{path}");
+        img.Save(path);
     }
 })
     .WithName("UploadFiles");
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

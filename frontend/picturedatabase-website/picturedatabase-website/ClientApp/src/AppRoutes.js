@@ -1,6 +1,7 @@
 import { Upload } from "./components/Upload";
 import { Home } from "./components/Home";
 import { Gallery } from "./components/Gallery";
+import { EditPicture } from "./components/EditPicture";
 
 const AppRoutes = [
     {
@@ -10,6 +11,10 @@ const AppRoutes = [
     {
         path: '/upload',
         element: <Upload />
+    },
+    {
+        path: '/editPicture/:id',
+        element: <EditPicture  />
     },
     {
         path: '/gallery',

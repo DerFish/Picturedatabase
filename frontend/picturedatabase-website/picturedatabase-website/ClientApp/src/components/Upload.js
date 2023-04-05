@@ -12,32 +12,28 @@ export function Upload() {
         setIsSelected(true);
     };
 
-    const testApi = async () => {
-        const response = await fetch('picture/uploadfile');
-        const data = response.text;
-        console.log(await response.text());
-    };
-
-    const handleSubmission = () => {
+    const sendReq = async () => {
         const formData = new FormData();
 
         formData.append('File', selectedFile);
 
-        fetch(
-            'https://localhost:32770/uploadpicture',
+        const response = await fetch(
+            'https://localhost:32774/uploadPicture',
             {
                 method: 'PUT',
                 body: formData,
-
             }
-        )
-            .then((response) => response.json())
-            .then((result) => {
-                console.log('Success:', result);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+        );
+
+        return response.json();
+    }
+
+    const handleSubmission = async () => {
+        sendReq().then((data) => {
+            console.log(data);
+        });
+
+
     };
 
     return (
@@ -58,7 +54,6 @@ export function Upload() {
             )}
             <div>
                 <button onClick={handleSubmission}>Submit</button>
-                <button onClick={testApi}>Test</button>
             </div>
         </div>
     );

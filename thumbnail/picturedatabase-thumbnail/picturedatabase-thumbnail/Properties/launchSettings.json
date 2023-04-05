@@ -1,0 +1,39 @@
+{
+    "profiles": {
+        "picturedatabase_thumbnail": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "launchUrl": "swagger",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "dotnetRunMessages": true,
+            "applicationUrl": "https://localhost:7091;http://localhost:5194"
+        },
+        "IIS Express": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "launchUrl": "swagger",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        "Docker": {
+            "commandName": "Docker",
+            "launchBrowser": true,
+            "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+            "publishAllPorts": true,
+            "useSSL": true,
+            "DockerfileRunArguments": "--mount type=bind,source=C:/ProgramData/picturedb,target=/usr/share/picturedb"
+        }
+    },
+    "$schema": "https://json.schemastore.org/launchsettings.json",
+    "iisSettings": {
+        "windowsAuthentication": false,
+        "anonymousAuthentication": true,
+        "iisExpress": {
+            "applicationUrl": "http://localhost:9550",
+            "sslPort": 44354
+        }
+    }
+}

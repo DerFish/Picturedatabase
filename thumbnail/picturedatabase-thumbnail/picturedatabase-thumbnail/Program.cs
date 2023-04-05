@@ -1,9 +1,6 @@
-using System.Drawing;
-using System.Drawing.Imaging;
 using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Metadata;
 
-namespace picturedatabase_greyscale
+namespace picturedatabase_thumbnail
 {
     public class Program
     {
@@ -31,20 +28,20 @@ namespace picturedatabase_greyscale
 
             app.UseAuthorization();
 
-            app.MapPost("/createGreyscale", (string id) =>
+            app.MapPost("/createThumbnail", (string id, int width) =>
             {
                 var folderPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + Path.DirectorySeparatorChar + "picturedb" + Path.DirectorySeparatorChar + id + Path.DirectorySeparatorChar;
                 var mainPath = folderPath + "main.jpg";
 
-                using (Image image = Image.Load(mainPath))
+                using (var image = SixLabors.ImageSharp.Image.Load(mainPath))
                 {
-                    image.Save(folderPath + "grayscale.jpg", new JpegEncoder()
-                    {
-                        ColorType = JpegEncodingColor.Luminance,
-                    });
+                    var height = (width * image.Height) / image.Width;
+
+                    image.Mutate(ctx => ctx.Resize(width, height));
+                    image.Save(folderPath + "thumbnail.jpg", new JpegEncoder());
                 }
             })
-            .WithName("CreateGreyscale");
+            .WithName("CreateThumbnail");
 
             app.Run();
         }

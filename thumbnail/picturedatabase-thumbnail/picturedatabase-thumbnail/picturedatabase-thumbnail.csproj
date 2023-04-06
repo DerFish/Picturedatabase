@@ -7,6 +7,8 @@
     <RootNamespace>picturedatabase_thumbnail</RootNamespace>
     <UserSecretsId>dbf81c7f-89f6-4165-9d1b-f05b262a5f38</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

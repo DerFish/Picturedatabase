@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picturedatabase-thumbnail", "thumbnail\picturedatabase-thumbnail\picturedatabase-thumbnail\picturedatabase-thumbnail.csproj", "{79B6A9B8-707D-46FD-9282-F3B0BED6EF76}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{AA537675-2A21-4A06-9066-EC5CC41AB437}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picturedatabase-api", "api\picturedatabase-api\picturedatabase-api\picturedatabase-api.csproj", "{1BF71937-64CC-4349-97AD-E751B8E5DC99}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picturedatabase-website", "frontend\picturedatabase-website\picturedatabase-website\picturedatabase-website.csproj", "{F97626CF-9071-4F38-B015-75CBDEDFEA5B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picturedatabase-greyscale", "greyscale\picturedatabase-greyscale\picturedatabase-greyscale\picturedatabase-greyscale.csproj", "{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79B6A9B8-707D-46FD-9282-F3B0BED6EF76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B6A9B8-707D-46FD-9282-F3B0BED6EF76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79B6A9B8-707D-46FD-9282-F3B0BED6EF76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79B6A9B8-707D-46FD-9282-F3B0BED6EF76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA537675-2A21-4A06-9066-EC5CC41AB437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA537675-2A21-4A06-9066-EC5CC41AB437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA537675-2A21-4A06-9066-EC5CC41AB437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA537675-2A21-4A06-9066-EC5CC41AB437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BF71937-64CC-4349-97AD-E751B8E5DC99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BF71937-64CC-4349-97AD-E751B8E5DC99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BF71937-64CC-4349-97AD-E751B8E5DC99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BF71937-64CC-4349-97AD-E751B8E5DC99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F97626CF-9071-4F38-B015-75CBDEDFEA5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F97626CF-9071-4F38-B015-75CBDEDFEA5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F97626CF-9071-4F38-B015-75CBDEDFEA5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F97626CF-9071-4F38-B015-75CBDEDFEA5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {74D78D25-449B-4977-A145-A3622610B052}
+	EndGlobalSection
+EndGlobal

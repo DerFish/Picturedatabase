@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "compose": "StartDebugging",
+        "picturedatabase-thumbnail": "StartDebugging",
+        "picturedatabase-api": "StartDebugging",
+        "picturedatabase-greyscale": "StartDebugging",
+        "picturedatabase-website": "StartDebugging"
+      }
+    }
+  }
+}

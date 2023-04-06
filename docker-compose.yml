@@ -1,0 +1,54 @@
+version: '3.4'
+
+services:
+  picturedatabase-thumbnail:
+    image: ${DOCKER_REGISTRY-}picturedatabasethumbnail
+    build:
+      context: .
+      dockerfile: thumbnail/picturedatabase-thumbnail/picturedatabase-thumbnail/Dockerfile
+    volumes:
+        - shared-data:/usr/share/picturedb
+
+
+  picturedatabase-api:
+    image: ${DOCKER_REGISTRY-}picturedatabaseapi
+    build:
+      context: .
+      dockerfile: api/picturedatabase-api/picturedatabase-api/Dockerfile
+    volumes:
+        - shared-data:/usr/share/picturedb
+
+
+  picturedatabase-greyscale:
+    image: ${DOCKER_REGISTRY-}picturedatabasegreyscale
+    build:
+      context: .
+      dockerfile: greyscale/picturedatabase-greyscale/picturedatabase-greyscale/Dockerfile
+    volumes:
+        - shared-data:/usr/share/picturedb
+
+  picturedatabase-website:
+    image: ${DOCKER_REGISTRY-}picturedatabasewebsite
+    build:
+      context: .
+      dockerfile: frontend/picturedatabase-website/picturedatabase-website/Dockerfile
+    volumes:
+        - shared-data:/usr/share/picturedb
+
+  picturedatabase-db:
+    image: mongo:latest
+    ports:
+      - 27018:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+
+volumes:
+  mongodb_data_container:
+  shared-data:
+
+networks:
+  default:
+
+
+  #"--mount type=bind,source=C:/ProgramData/picturedb,target=/usr/share/picturedb"

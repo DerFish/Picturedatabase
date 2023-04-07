@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["picturedatabase-greyscale/picturedatabase-greyscale.csproj", "picturedatabase-greyscale/"]
+COPY ["greyscale/picturedatabase-greyscale/picturedatabase-greyscale/picturedatabase-greyscale.csproj", "picturedatabase-greyscale/"]
 RUN dotnet restore "picturedatabase-greyscale/picturedatabase-greyscale.csproj"
 COPY . .
-WORKDIR "/src/picturedatabase-greyscale"
+WORKDIR "/src/greyscale/picturedatabase-greyscale/picturedatabase-greyscale"
 RUN dotnet build "picturedatabase-greyscale.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -20,10 +20,10 @@ RUN apt-get install -y libpng-dev libjpeg-dev curl libxi6 build-essential libgl1
 RUN curl -sL https://deb.nodesource.com/setup_lts.x | bash -
 RUN apt-get install -y nodejs
 WORKDIR /src
-COPY ["picturedatabase-website/picturedatabase-website.csproj", "picturedatabase-website/"]
+COPY ["frontend/picturedatabase-website/picturedatabase-website/picturedatabase-website.csproj", "picturedatabase-website/"]
 RUN dotnet restore "picturedatabase-website/picturedatabase-website.csproj"
 COPY . .
-WORKDIR "/src/picturedatabase-website"
+WORKDIR "/src/frontend/picturedatabase-website/picturedatabase-website"
 RUN dotnet build "picturedatabase-website.csproj" -c Release -o /app/build
 
 FROM build AS publish
@@ -31,5 +31,5 @@ RUN dotnet publish "picturedatabase-website.csproj" -c Release -o /app/publish /
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish /etc/pimml
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "picturedatabase-website.dll"]

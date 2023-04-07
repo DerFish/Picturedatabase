@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["picturedatabase-thumbnail/picturedatabase-thumbnail.csproj", "picturedatabase-thumbnail/"]
+COPY ["thumbnail/picturedatabase-thumbnail/picturedatabase-thumbnail/picturedatabase-thumbnail.csproj", "picturedatabase-thumbnail/"]
 RUN dotnet restore "picturedatabase-thumbnail/picturedatabase-thumbnail.csproj"
 COPY . .
-WORKDIR "/src/picturedatabase-thumbnail"
+WORKDIR "/src/thumbnail/picturedatabase-thumbnail/picturedatabase-thumbnail"
 RUN dotnet build "picturedatabase-thumbnail.csproj" -c Release -o /app/build
 
 FROM build AS publish

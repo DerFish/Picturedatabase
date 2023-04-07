@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["picturedatabase-api/picturedatabase-api.csproj", "picturedatabase-api/"]
+COPY ["api/picturedatabase-api/picturedatabase-api/picturedatabase-api.csproj", "picturedatabase-api/"]
 RUN dotnet restore "picturedatabase-api/picturedatabase-api.csproj"
 COPY . .
-WORKDIR "/src/picturedatabase-api"
+WORKDIR "/src/api/picturedatabase-api/picturedatabase-api"
 RUN dotnet build "picturedatabase-api.csproj" -c Release -o /app/build
 
 FROM build AS publish

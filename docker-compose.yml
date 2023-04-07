@@ -5,7 +5,7 @@ services:
     image: ${DOCKER_REGISTRY-}picturedatabasethumbnail
     build:
       context: .
-      dockerfile: thumbnail/picturedatabase-thumbnail/picturedatabase-thumbnail/Dockerfile
+      dockerfile: thumbnail/picturedatabase-thumbnail/Dockerfile
     volumes:
         - shared-data:/usr/share/picturedb
 
@@ -14,7 +14,7 @@ services:
     image: ${DOCKER_REGISTRY-}picturedatabaseapi
     build:
       context: .
-      dockerfile: api/picturedatabase-api/picturedatabase-api/Dockerfile
+      dockerfile: api/picturedatabase-api/Dockerfile
     volumes:
         - shared-data:/usr/share/picturedb
 
@@ -23,11 +23,11 @@ services:
     image: ${DOCKER_REGISTRY-}picturedatabasegreyscale
     build:
       context: .
-      dockerfile: greyscale/picturedatabase-greyscale/picturedatabase-greyscale/Dockerfile
+      dockerfile: greyscale/picturedatabase-greyscale/Dockerfile
     volumes:
         - shared-data:/usr/share/picturedb
 
-  
+
 
   picturedatabase-db:
     image: mongo:latest
@@ -41,7 +41,7 @@ services:
     image: ${DOCKER_REGISTRY-}picturedatabasewebsite
     build:
       context: .
-      dockerfile: frontend/picturedatabase-website/picturedatabase-website/Dockerfile
+      dockerfile: frontend/picturedatabase-website/Dockerfile
 
 volumes:
   mongodb_data_container:

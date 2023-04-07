@@ -37,6 +37,12 @@ services:
       - mongodb_data_container:/data/db
 
 
+  picturedatabase-website:
+    image: ${DOCKER_REGISTRY-}picturedatabasewebsite
+    build:
+      context: .
+      dockerfile: frontend/picturedatabase-website/picturedatabase-website/Dockerfile
+
 volumes:
   mongodb_data_container:
   shared-data:
@@ -46,3 +52,4 @@ networks:
 
 
   #"--mount type=bind,source=C:/ProgramData/picturedb,target=/usr/share/picturedb"
+

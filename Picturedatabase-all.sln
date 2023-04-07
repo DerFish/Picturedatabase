@@ -9,9 +9,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picturedatabase-api", "api\picturedatabase-api\picturedatabase-api\picturedatabase-api.csproj", "{1BF71937-64CC-4349-97AD-E751B8E5DC99}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picturedatabase-website", "frontend\picturedatabase-website\picturedatabase-website\picturedatabase-website.csproj", "{F97626CF-9071-4F38-B015-75CBDEDFEA5B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picturedatabase-greyscale", "greyscale\picturedatabase-greyscale\picturedatabase-greyscale\picturedatabase-greyscale.csproj", "{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picturedatabase-website", "frontend\picturedatabase-website\picturedatabase-website\picturedatabase-website.csproj", "{E0FAD7FD-26DB-4D48-B390-1C6DBA0B54C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +31,14 @@ Global
 		{1BF71937-64CC-4349-97AD-E751B8E5DC99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BF71937-64CC-4349-97AD-E751B8E5DC99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BF71937-64CC-4349-97AD-E751B8E5DC99}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F97626CF-9071-4F38-B015-75CBDEDFEA5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F97626CF-9071-4F38-B015-75CBDEDFEA5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F97626CF-9071-4F38-B015-75CBDEDFEA5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F97626CF-9071-4F38-B015-75CBDEDFEA5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9450C276-7DEF-49A1-9075-E6BCAEF74B4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0FAD7FD-26DB-4D48-B390-1C6DBA0B54C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0FAD7FD-26DB-4D48-B390-1C6DBA0B54C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0FAD7FD-26DB-4D48-B390-1C6DBA0B54C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0FAD7FD-26DB-4D48-B390-1C6DBA0B54C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

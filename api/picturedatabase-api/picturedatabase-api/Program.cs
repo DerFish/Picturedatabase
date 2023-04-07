@@ -46,7 +46,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(MyAllowSpecificOrigins);
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.MapGet("/getPictureInfo", async (string id, PictureService service) =>
 {

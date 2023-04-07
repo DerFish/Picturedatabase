@@ -13,6 +13,9 @@ export function Upload() {
     };
 
     const sendReq = async () => {
+
+        console.log(process.env.REACT_APP_API + 'uploadPicture');
+
         const formData = new FormData();
 
         formData.append('File', selectedFile);

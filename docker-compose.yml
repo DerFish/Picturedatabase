@@ -27,8 +27,6 @@ services:
     volumes:
         - shared-data:/usr/share/picturedb
 
-
-
   picturedatabase-db:
     image: mongo:latest
     ports:
@@ -42,6 +40,8 @@ services:
     build:
       context: .
       dockerfile: frontend/picturedatabase-website/Dockerfile
+    volumes:
+        - shared-data:/usr/share/picturedb
 
 volumes:
   mongodb_data_container:

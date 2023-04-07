@@ -27,13 +27,7 @@ services:
     volumes:
         - shared-data:/usr/share/picturedb
 
-  picturedatabase-website:
-    image: ${DOCKER_REGISTRY-}picturedatabasewebsite
-    build:
-      context: .
-      dockerfile: frontend/picturedatabase-website/picturedatabase-website/Dockerfile
-    volumes:
-        - shared-data:/usr/share/picturedb
+  
 
   picturedatabase-db:
     image: mongo:latest

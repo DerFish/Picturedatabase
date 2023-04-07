@@ -18,7 +18,7 @@ export function Upload() {
         formData.append('File', selectedFile);
 
         const response = await fetch(
-            'https://localhost:32774/uploadPicture',
+            process.env.REACT_APP_API + 'uploadPicture',
             {
                 method: 'PUT',
                 body: formData,
@@ -32,8 +32,6 @@ export function Upload() {
         sendReq().then((data) => {
             console.log(data);
         });
-
-
     };
 
     return (

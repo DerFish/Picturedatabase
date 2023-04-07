@@ -1,19 +1,23 @@
+using Amazon.Runtime.Internal;
 using ExifLibrary;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using picturedatabase_api.Config;
 using picturedatabase_api.Db;
+using picturedatabase_api.Util;
 using System.Drawing;
+using System.Text.Json;
 using static System.Environment;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Allow local CORS
-string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Allow local CORS
+string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(o => o.AddPolicy(MyAllowSpecificOrigins,
                       builder =>
                       {
@@ -24,7 +28,13 @@ builder.Services.AddCors(o => o.AddPolicy(MyAllowSpecificOrigins,
 builder.Services.Configure<PictureDatabaseSettings>(
     builder.Configuration.GetSection("PictureDatabase"));
 
+builder.Services.Configure<PictureServicesSettings>(
+    builder.Configuration.GetSection("PictureServices"));
+
 builder.Services.AddSingleton<PictureService>();
+builder.Services.AddSingleton<RequestSender>();
+
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -80,5 +90,26 @@ app.MapPut("/uploadPicture", async (HttpRequest fileReq, PictureService service)
     }
 })
     .WithName("UploadFiles");
+
+app.MapPost("/createGreyscale", async (HttpRequest request, RequestSender requestSender) =>
+{
+    var body = new StreamReader(request.Body);
+    string postData = await body.ReadToEndAsync();
+    Dictionary<string, dynamic> keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(postData) ?? new Dictionary<string, dynamic>();
+    string id = keyValuePairs["id"].GetString();
+
+    await requestSender.CreateGreyscale(id);
+}).WithName("Create Greyscale");
+
+app.MapPost("/createThumbnail", async (HttpRequest request, RequestSender requestSender) =>
+{
+    var body = new StreamReader(request.Body);
+    string postData = await body.ReadToEndAsync();
+    Dictionary<string, dynamic> keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(postData) ?? new Dictionary<string, dynamic>();
+    string id = keyValuePairs["id"].GetString();
+    int width = requestSender.settings.Value.ThumbnailWidth ?? 150;
+
+    await requestSender.CreateThumbnail(id, width);
+}).WithName("Create Thumbnail");
 
 app.Run();

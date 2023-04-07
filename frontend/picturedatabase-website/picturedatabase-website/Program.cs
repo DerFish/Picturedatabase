@@ -3,7 +3,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-builder.WebHost.UseUrls("http://*:50001");
 
 var app = builder.Build();
 

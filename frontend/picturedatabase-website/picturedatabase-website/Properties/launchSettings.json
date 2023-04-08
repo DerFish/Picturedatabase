@@ -5,7 +5,9 @@
             "launchBrowser": true,
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+                "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
+                "REACT_APP_API": "http://localhost:50001/",
+                "REACT_APP_IMAGEFOLDERPATH": "/ProgramData/picturedb"
             },
             "applicationUrl": "http://localhost:5069"
         },

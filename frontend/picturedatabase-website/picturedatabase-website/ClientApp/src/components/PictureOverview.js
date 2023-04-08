@@ -52,7 +52,7 @@ export function PictureOverview() {
                     <td>{element.fileType}</td>
                     <td>{element.createDate}</td>
                     <td><img className="img-fluid"
-                        src={`${imageFolderPath}${element.id}\\main.jpg`}
+                        src={`${imageFolderPath}${element.id}\\thumbnail.jpg`}
                         alt="logo" /></td>
                 </tr>
             )

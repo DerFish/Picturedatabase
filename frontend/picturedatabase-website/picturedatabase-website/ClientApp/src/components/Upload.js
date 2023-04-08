@@ -1,4 +1,5 @@
 ﻿import React, { useState } from 'react';
+import { getEnvVariable } from '../helper';
 
 export function Upload() {
     const displayName = Upload.name;
@@ -13,22 +14,24 @@ export function Upload() {
     };
 
     const sendReq = async () => {
-
         console.log(process.env.REACT_APP_API + 'uploadPicture');
 
         const formData = new FormData();
 
         formData.append('File', selectedFile);
 
-        const response = await fetch(
-            process.env.REACT_APP_API + 'uploadPicture',
-            {
-                method: 'PUT',
-                body: formData,
-            }
-        );
-
-        return response.json();
+        getEnvVariable("REACT_APP_API")
+            .then((data) => {
+                fetch(
+                    data + 'uploadPicture',
+                    {
+                        method: 'PUT',
+                        body: formData,
+                    }
+                ).then((response) => {
+                    return response.json();
+                });
+            });
     }
 
     const handleSubmission = async () => {

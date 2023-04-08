@@ -1,6 +1,7 @@
 ﻿import { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { getEnvVariable } from '../helper';
+import { Link } from 'react-router-dom';
 
 export function PictureOverview() {
     const [tableData, setTableData] = useState();
@@ -54,6 +55,12 @@ export function PictureOverview() {
                     <td><img className="img-fluid"
                         src={`${imageFolderPath}${element.id}\\thumbnail.jpg`}
                         alt="logo" /></td>
+                    <td><Link to={`/editPicture/${element.id}`} >
+                        <button>Bearbeiten</button>
+                    </Link>
+                        <Link to={`/deletePicture/${element.id}`}>
+                            <button>Löschen</button>
+                        </Link></td>
                 </tr>
             )
         });
@@ -70,6 +77,8 @@ export function PictureOverview() {
                     <th>File Size</th>
                     <th>File Type</th>
                     <th>Create Date</th>
+                    <th>Thumbnail</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

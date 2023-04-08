@@ -56,7 +56,7 @@ namespace picturedatabase_greyscale
 
                 using (Image image = Image.Load(mainPath))
                 {
-                    image.Save(folderPath + "grayscale.jpg", new JpegEncoder()
+                    image.Save(folderPath + "greyscale.jpg", new JpegEncoder()
                     {
                         ColorType = JpegEncodingColor.Luminance,
                     });

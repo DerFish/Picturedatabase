@@ -1,3 +1,5 @@
+using Microsoft.Extensions.FileProviders;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,7 +16,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles()
+    .UseStaticFiles(new StaticFileOptions()
+    {
+        FileProvider = new PhysicalFileProvider(Environment.GetEnvironmentVariable("REACT_APP_IMAGEFOLDERPATH")),
+        RequestPath = new PathString(Environment.GetEnvironmentVariable("REACT_APP_IMAGEFOLDERPATH"))
+    });
 app.UseRouting();
 
 app.MapControllerRoute(

@@ -40,6 +40,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - REACT_APP_API=http://localhost:50001/
+      - REACT_APP_IMAGEFOLDERPATH=/usr/share/picturedb
     ports:
       - "50000:80"
       - "443"

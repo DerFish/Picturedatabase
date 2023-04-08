@@ -32,4 +32,8 @@ RUN dotnet publish "picturedatabase-website.csproj" -c Release -o /app/publish /
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+ARG REACT_APP_API
+ENV REACT_APP_API http://picturedatabase-api:50001/
+
 ENTRYPOINT ["dotnet", "picturedatabase-website.dll"]

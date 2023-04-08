@@ -12,7 +12,7 @@ export function EditPicture(props) {
     useEffect(() => {
         setLoading(true);
         fetch(
-            "https://localhost:32774/getPictureInfo?id=" + id
+            process.env.REACT_APP_API+"getPictureInfo?id=" + id
         )
             .then((resp) => {
                 return resp.json();

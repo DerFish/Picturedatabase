@@ -54,6 +54,12 @@ app.MapGet("/getPictureInfo", async (string id, PictureService service) =>
     return item;
 });
 
+app.MapGet("/getPictures", async (PictureService service) =>
+{
+    var item = await service.GetAsync();
+    return item;
+});
+
 app.MapPut("/uploadPicture", async (HttpRequest fileReq, PictureService service) =>
 {
     // Only upload of the file

@@ -1,8 +1,10 @@
 ﻿import React, { useState } from 'react';
 import { getEnvVariable } from '../helper';
+import { useNavigate } from 'react-router-dom';
 
 export function Upload() {
     const displayName = Upload.name;
+    const navigate = useNavigate();
 
     const [selectedFile, setSelectedFile] = useState();
     const [isSelected, setIsSelected] = useState();
@@ -28,15 +30,18 @@ export function Upload() {
                         method: 'PUT',
                         body: formData,
                     }
-                ).then((response) => {
-                    return response.json();
-                });
+                )
+                    .then((req) => {
+                        return req.json();
+                    }).
+                    then((data) => {
+                        navigate("/editPicture/" + data);
+                    })
             });
     }
 
     const handleSubmission = async () => {
         sendReq().then((data) => {
-            console.log(data);
         });
     };
 
@@ -48,10 +53,6 @@ export function Upload() {
                     <p>Filename: {selectedFile.name}</p>
                     <p>Filetype: {selectedFile.type}</p>
                     <p>Size in bytes: {selectedFile.size}</p>
-                    <p>
-                        lastModifiedDate:{' '}
-                        {selectedFile.lastModifiedDate.toLocaleDateString()}
-                    </p>
                 </div>
             ) : (
                 <p>Select a file to show details</p>

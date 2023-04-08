@@ -78,8 +78,8 @@ app.MapPut("/uploadPicture", async (HttpRequest fileReq, PictureService service)
         await file.CopyToAsync(memoryStream);
         var img = ImageFile.FromStream(memoryStream);
 
-        var dbEntry = new Picture(Guid.NewGuid().ToString(), file.FileName, Path.GetExtension(file.FileName).TrimStart('.'), file.Length);
-        dbEntry.CreateDate = DateTime.Now;
+        var dbEntry = new Picture(Guid.NewGuid().ToString(), file.FileName, Path.GetExtension(file.FileName).TrimStart('.'), file.Length.ToString());
+        dbEntry.CreateDate = DateTime.Now.ToString();
 
         foreach (var property in img.Properties)
         {
@@ -96,6 +96,20 @@ app.MapPut("/uploadPicture", async (HttpRequest fileReq, PictureService service)
     }
 })
     .WithName("UploadFiles");
+
+app.MapPost("/editPicture", async (HttpRequest request, PictureService service) =>
+{
+    var body = new StreamReader(request.Body);
+    string postData = await body.ReadToEndAsync();
+
+    var options = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+    var pic = JsonSerializer.Deserialize<Picture>(postData, options);
+    await service.UpdateAsync(pic.Id, pic);
+}).WithName("EditPicture");
 
 app.MapPost("/createGreyscale", async (HttpRequest request, RequestSender requestSender) =>
 {

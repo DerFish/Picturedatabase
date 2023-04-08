@@ -11,8 +11,14 @@ namespace picturedatabase_api.Db
         public PictureService(
             IOptions<PictureDatabaseSettings> pictureDatabaseSettings)
         {
-            var mongoClient = new MongoClient(
-                pictureDatabaseSettings.Value.ConnectionString);
+            var con = "";
+#if DEBUG
+            con = "mongodb://localhost:27018";
+#else
+con=pictureDatabaseSettings.Value.ConnectionString;
+#endif
+            var mongoClient = new MongoClient(con
+                );
 
             var mongoDatabase = mongoClient.GetDatabase(
                 pictureDatabaseSettings.Value.DatabaseName);

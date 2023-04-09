@@ -50,15 +50,39 @@ app.UseCors(MyAllowSpecificOrigins);
 
 app.MapGet("/getPictureInfo", async (string id, PictureService service) =>
 {
-    var item = await service.GetAsync(id);
-    return item;
+    return await service.GetAsync(id);
 });
 
 app.MapGet("/getPictures", async (PictureService service) =>
 {
-    var item = await service.GetAsync();
-    return item;
+    return await service.GetAsync();
 });
+
+app.MapGet("/getTags", (PictureService service) =>
+{
+    return service.GetTags();
+});
+
+app.MapPost("/filterPicturesByTags",async (HttpRequest request, PictureService service) =>
+{
+    var body = new StreamReader(request.Body);
+    string postData = await body.ReadToEndAsync();
+
+    var options = new JsonSerializerOptions
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+    var tags = JsonSerializer.Deserialize<List<string>>(postData, options);
+
+    if(tags.Count == 0)
+    {
+        return await service.GetAsync();
+    }
+
+    return  service.GetByTagsAsync(tags);
+})
+    .WithName("Filter pictures by tags");
 
 app.MapPut("/uploadPicture", async (HttpRequest fileReq, PictureService service) =>
 {
@@ -78,7 +102,12 @@ app.MapPut("/uploadPicture", async (HttpRequest fileReq, PictureService service)
         await file.CopyToAsync(memoryStream);
         var img = ImageFile.FromStream(memoryStream);
 
-        var dbEntry = new Picture(Guid.NewGuid().ToString(), file.FileName, Path.GetExtension(file.FileName).TrimStart('.'), file.Length.ToString());
+        var dbEntry = new Picture(
+            Guid.NewGuid().ToString(),
+            file.FileName,
+            Path.GetExtension(file.FileName).TrimStart('.'),
+            file.Length.ToString()
+            );
         dbEntry.CreateDate = DateTime.Now.ToString();
 
         foreach (var property in img.Properties)

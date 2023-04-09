@@ -10,10 +10,10 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import $ from 'jquery';
 
-
 export function EditPicture(props) {
     const [pictureData, setPictureData] = useState({});
     const [imageFolderPath, setImageFolderPath] = useState();
+    const [suggestions, setSuggestions] = useState([]);
     const [exifRows, setExifRows] = useState([]);
     const [apiUrl, setApiUrl] = useState();
     const [loading, setLoading] = useState(true);
@@ -80,10 +80,24 @@ export function EditPicture(props) {
                                 createPropertyRows(dataa);
                                 setLoading(false);
                             });
+
+                        fetch(
+                            data + "getTags"
+                        )
+                            .then((resp) => {
+                                console.log(resp);
+                                return resp.json();
+                            })
+                            .catch((err) => {
+                                console.log("error");
+                                console.log(err);
+                            })
+                            .then((dataa) => {
+                                setSuggestions(dataa);
+                            });
                     });
             });
     }, []);
-
 
     const createPropertyRows = (data) => {
         console.log(data);
@@ -92,24 +106,18 @@ export function EditPicture(props) {
             return <div></div>;
         }
 
-
         var rows = [];
 
         for (var i = 0; i < data.exifProperties.length; i++) {
             rows.push(createExifPropertyInputRow(i, data.exifProperties[i].name, data.exifProperties[i].value));
-             }
+        }
 
         setExifRows(rows);
     }
 
-
     const removeExifProperty = (no) => {
-        $('#mainForm').find('*[data-no="'+no+'"]').remove();
-
+        $('#mainForm').find('*[data-no="' + no + '"]').remove();
     }
-
-
-
 
     const createExifPropertyInputRow = (no, name, value) => {
         return <Row className="exifDataRow" data-no={no}><Form.Group controlId={no} as={Col} style={{ marginBottom: 20 + 'px' }}  >
@@ -117,14 +125,13 @@ export function EditPicture(props) {
             <Form.Control type="text" defaultValue={name} className="exifDataName" />
         </Form.Group>
             <Form.Group controlId={no} as={Col} >
-            <Form.Label>Wert:</Form.Label>
+                <Form.Label>Wert:</Form.Label>
                 <Form.Control type="text" defaultValue={value} className="exifDataValue" />
             </Form.Group>
             <Button onClick={() => { removeExifProperty(no) }} as={Col} style={{ margin: 30 + 'px' }} >-</Button>
 
         </Row>
     }
-
 
     const addExifPropertyInput = () => {
         let newRow = createExifPropertyInputRow(exifRows.length, "", "");
@@ -143,11 +150,10 @@ export function EditPicture(props) {
             exifProperties.push({ name: name, value: val });
         });
 
-
         var pictureData = {
             id: $('#mainForm').find('input[name="id"]').val(),
             fileName: $('#mainForm').find('input[name="fileName"]').val(),
-                fileSize: $('#mainForm').find('input[name="fileSize"]').val(),
+            fileSize: $('#mainForm').find('input[name="fileSize"]').val(),
             fileType: $('#mainForm').find('input[name="fileType"]').val(),
             createDate: $('#mainForm').find('input[name="createDate"]').val(),
             exifProperties: exifProperties,
@@ -166,8 +172,6 @@ export function EditPicture(props) {
                 console.log(resp);
                 window.locatio.reload();
             });
-
-
     }
 
     return loading ? <div>loading...</div> : (
@@ -228,6 +232,9 @@ export function EditPicture(props) {
                         handleDrag={handleDrag}
                         handleTagClick={handleTagClick}
                         inputFieldPosition="bottom"
+                        suggestions={suggestions}
+                        minQueryLength="1"
+                        allowUnique="true"
                         autocomplete
                     />
                 </div>

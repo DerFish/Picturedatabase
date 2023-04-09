@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using picturedatabase_api.Config;
 
@@ -25,7 +26,6 @@ con=pictureDatabaseSettings.Value.ConnectionString;
 
             _picturesCollection = mongoDatabase.GetCollection<Picture>(
                 pictureDatabaseSettings.Value.PictureCollectionName);
-
         }
 
         public async Task CreateAsync(Picture newBook) =>
@@ -42,5 +42,15 @@ con=pictureDatabaseSettings.Value.ConnectionString;
 
         public async Task UpdateAsync(string id, Picture updatedBook) =>
                     await _picturesCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);
+
+        public List<Tag> GetTags()
+        {
+            return _picturesCollection.AsQueryable<Picture>().SelectMany(s => s.Tags).Distinct().ToList();
+        }
+
+        internal List<Picture> GetByTagsAsync(List<string> tags)
+        {
+            return _picturesCollection.AsQueryable<Picture>().Where(w => w.Tags.Any(a => tags.Any(b => a.Text == b))).ToList();
+        }
     }
 }

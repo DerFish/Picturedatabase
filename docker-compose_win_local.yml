@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: thumbnail/picturedatabase-thumbnail/Dockerfile
     volumes:
-        - shared-data:/usr/share/picturedb
+        - C:/ProgramData/picturedb:/usr/share/picturedb
 
 
   picturedatabase-api:
@@ -16,7 +16,7 @@ services:
       context: .
       dockerfile: api/picturedatabase-api/Dockerfile
     volumes:
-        - shared-data:/usr/share/picturedb
+        - C:/ProgramData/picturedb:/usr/share/picturedb
 
 
   picturedatabase-greyscale:
@@ -25,7 +25,7 @@ services:
       context: .
       dockerfile: greyscale/picturedatabase-greyscale/Dockerfile
     volumes:
-        - shared-data:/usr/share/picturedb
+        - C:/ProgramData/picturedb:/usr/share/picturedb
 
   picturedatabase-db:
     image: mongo:latest
@@ -41,11 +41,10 @@ services:
       context: .
       dockerfile: frontend/picturedatabase-website/Dockerfile
     volumes:
-        - shared-data:/usr/share/picturedb
+        - C:/ProgramData/picturedb:/usr/share/picturedb
 
 volumes:
   mongodb_data_container:
-  shared-data:
 
 networks:
   default:

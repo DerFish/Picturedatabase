@@ -63,7 +63,7 @@ app.MapGet("/getTags", (PictureService service) =>
     return service.GetTags();
 });
 
-app.MapPost("/filterPicturesByTags",async (HttpRequest request, PictureService service) =>
+app.MapPost("/filterPicturesByTags", async (HttpRequest request, PictureService service) =>
 {
     var body = new StreamReader(request.Body);
     string postData = await body.ReadToEndAsync();
@@ -75,14 +75,27 @@ app.MapPost("/filterPicturesByTags",async (HttpRequest request, PictureService s
 
     var tags = JsonSerializer.Deserialize<List<string>>(postData, options);
 
-    if(tags.Count == 0)
+    if (tags.Count == 0)
     {
         return await service.GetAsync();
     }
 
-    return  service.GetByTagsAsync(tags);
+    return service.GetByTagsAsync(tags);
 })
     .WithName("Filter pictures by tags");
+
+app.MapPost("/deletePicture", async (HttpRequest request, PictureService service) =>
+{
+    var body = new StreamReader(request.Body);
+    string postData = await body.ReadToEndAsync();
+    Dictionary<string, dynamic> keyValuePairs = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(postData) ?? new Dictionary<string, dynamic>();
+    string id = keyValuePairs["id"].GetString();
+
+    await service.RemoveAsync(id);
+
+    Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + Path.DirectorySeparatorChar + "picturedb" + Path.DirectorySeparatorChar + id, true);
+})
+    .WithName("Delete Picture");
 
 app.MapPut("/uploadPicture", async (HttpRequest fileReq, PictureService service) =>
 {

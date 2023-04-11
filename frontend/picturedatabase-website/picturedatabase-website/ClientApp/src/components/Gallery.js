@@ -161,7 +161,6 @@ export function GalleryPage() {
 
     return (
         <div>
-            <h1 id="tabelLabel">Gallerie</h1>
             <div>
                 <h3>Filter:</h3>
                 <ReactTags

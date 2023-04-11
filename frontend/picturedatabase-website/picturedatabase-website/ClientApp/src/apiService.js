@@ -29,3 +29,18 @@ export const generateThumbnail = async (id) => {
             })
         });
 }
+
+export const deletePicture = (id) => {
+    getEnvVariable("REACT_APP_API").
+        then((apiUrl) => {
+            fetch(
+                apiUrl + 'deletePicture',
+                {
+                    method: 'POST',
+                    body: JSON.stringify({ id: id })
+                }
+            ).then((resp) => {
+                return resp;
+            })
+        });
+}

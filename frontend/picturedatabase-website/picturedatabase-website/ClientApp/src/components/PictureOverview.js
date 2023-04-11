@@ -2,11 +2,16 @@
 import Table from 'react-bootstrap/Table';
 import { getEnvVariable } from '../helper';
 import { Link } from 'react-router-dom';
+import { deletePicture } from '../apiService';
+import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 export function PictureOverview() {
     const [tableData, setTableData] = useState();
     const [imageFolderPath, setImageFolderPath] = useState();
+    const [apiUrl, setApiUrl] = useState();
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         var apiLink = "";
@@ -17,6 +22,7 @@ export function PictureOverview() {
 
                 getEnvVariable("REACT_APP_API")
                     .then((data) => {
+                        setApiUrl(data);
                         fetch(
                             data + "getPictures"
                         )
@@ -56,11 +62,10 @@ export function PictureOverview() {
                         src={`${imageFolderPath}${element.id}\\thumbnail.jpg`}
                         alt="logo" /></td>
                     <td><Link to={`/editPicture/${element.id}`} >
-                        <button>Bearbeiten</button>
+                        <Button>Bearbeiten</Button>
                     </Link>
-                        <Link to={`/deletePicture/${element.id}`}>
-                            <button>Löschen</button>
-                        </Link></td>
+                        <Button onClick={(e) => deletePicture(element.id).then(() => navigate(0))}>Löschen</Button>
+                    </td>
                 </tr>
             )
         });

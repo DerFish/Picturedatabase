@@ -9,6 +9,7 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import $ from 'jquery';
+import './Tags.css';
 
 export function EditPicture(props) {
     const [pictureData, setPictureData] = useState({});
@@ -231,7 +232,7 @@ export function EditPicture(props) {
                         handleAddition={handleAddition}
                         handleDrag={handleDrag}
                         handleTagClick={handleTagClick}
-                        inputFieldPosition="bottom"
+                        inputFieldPosition="inline"
                         suggestions={suggestions}
                         minQueryLength="1"
                         allowUnique="true"
@@ -245,8 +246,9 @@ export function EditPicture(props) {
                 {exifRows.length == 0 ? <div></div> : exifRows}
                 <Button onClick={() => addExifPropertyInput()} >+</Button>
                 <br></br>
+                <br></br>
                 <Button variant="success" size="lg" block="block" type="submit">Save</Button>
-                <Link to={"/list-student"} className="btn btn-danger btn-block">Cancel</Link>
+                <Link to={"/PictureOverview"} style={{ margin: 10 + 'px' }} className="btn btn-danger btn-block">Cancel</Link>
             </Form>
 
         </div>

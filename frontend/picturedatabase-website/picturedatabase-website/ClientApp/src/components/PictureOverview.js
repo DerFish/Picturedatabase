@@ -64,7 +64,8 @@ export function PictureOverview() {
                     <td><Link to={`/editPicture/${element.id}`} >
                         <Button>Bearbeiten</Button>
                     </Link>
-                        <Button onClick={(e) => deletePicture(element.id).then(() => navigate(0))}>Löschen</Button>
+                        <Button onClick={(e) => {
+                            deletePicture(element.id)}}>Löschen</Button>
                     </td>
                 </tr>
             )
@@ -78,10 +79,10 @@ export function PictureOverview() {
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>File Name</th>
-                    <th>File Size</th>
-                    <th>File Type</th>
-                    <th>Create Date</th>
+                    <th>Datei Name</th>
+                    <th>Datei Größe</th>
+                    <th>Datei Typ</th>
+                    <th>Erstelldatum</th>
                     <th>Thumbnail</th>
                     <th></th>
                 </tr>

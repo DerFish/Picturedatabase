@@ -1,6 +1,8 @@
 ﻿import React, { useState } from 'react';
 import { getEnvVariable } from '../helper';
 import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 export function Upload() {
     const displayName = Upload.name;
@@ -47,18 +49,18 @@ export function Upload() {
 
     return (
         <div>
-            <input type="file" name="file" onChange={changeHandler} />
+            <Form.Control type="file" name="file" onChange={changeHandler} />
             {isSelected ? (
                 <div>
-                    <p>Filename: {selectedFile.name}</p>
-                    <p>Filetype: {selectedFile.type}</p>
-                    <p>Size in bytes: {selectedFile.size}</p>
+                    <p>Dateiname: {selectedFile.name}</p>
+                    <p>Dateityp: {selectedFile.type}</p>
+                    <p>Größe in Bytes: {selectedFile.size}</p>
                 </div>
             ) : (
-                <p>Select a file to show details</p>
+                <p>Datei auswählen um Daten anzuzeigen</p>
             )}
             <div>
-                <button onClick={handleSubmission}>Submit</button>
+                <Button onClick={handleSubmission}>Hochladen</Button>
             </div>
         </div>
     );

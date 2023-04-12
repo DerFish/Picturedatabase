@@ -10,6 +10,8 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import $ from 'jquery';
 import './Tags.css';
+import { useNavigate } from 'react-router-dom';
+
 
 export function EditPicture(props) {
     const [pictureData, setPictureData] = useState({});
@@ -19,6 +21,8 @@ export function EditPicture(props) {
     const [apiUrl, setApiUrl] = useState();
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
+    const navigate = useNavigate();
+
 
     const KeyCodes = {
         comma: 188,
@@ -141,7 +145,6 @@ export function EditPicture(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("Submit");
 
         var exifProperties = [];
         $('#mainForm').find('.exifDataRow').each(function (i, obj) {
@@ -161,8 +164,6 @@ export function EditPicture(props) {
             tags: tags
         };
 
-        console.log(pictureData);
-
         fetch(
             apiUrl + 'editPicture'
             , {
@@ -171,7 +172,7 @@ export function EditPicture(props) {
             })
             .then((resp) => {
                 console.log(resp);
-                window.locatio.reload();
+                navigate("/pictureOverview");
             });
     }
 
@@ -185,15 +186,15 @@ export function EditPicture(props) {
                     <Form.Control type="text" value={pictureData.id} name="id" disabled />
                 </Form.Group>
                 <Form.Group controlId="fileName">
-                    <Form.Label>Filename:</Form.Label>
+                    <Form.Label>Dateiname:</Form.Label>
                     <Form.Control type="text" value={pictureData.fileName} name="fileName" disabled />
                 </Form.Group>
                 <Form.Group controlId="fileSize">
-                    <Form.Label>Filesize:</Form.Label>
+                    <Form.Label>Dateigröße:</Form.Label>
                     <Form.Control type="number" value={pictureData.fileSize} name="fileSize" disabled />
                 </Form.Group>
                 <Form.Group controlId="fileType">
-                    <Form.Label>Filetype:</Form.Label>
+                    <Form.Label>Typ:</Form.Label>
                     <Form.Control type="text" value={pictureData.fileType} name="fileType" disabled />
                 </Form.Group>
                 <Form.Group controlId="createDate">
@@ -212,14 +213,14 @@ export function EditPicture(props) {
                         src={`${imageFolderPath}${pictureData.id}\\greyscale.jpg`}
                         alt="logo" />
                     <Button onClick={(e) => generateGreyscale(pictureData.id)
-                        .then(() => alert('Generiert!'))} >Generieren</Button>
+                        } >Generieren</Button>
                 </Form.Group>
                 <Form.Group controlId="picture">
                     <Form.Label>Thumbnail:</Form.Label>
                     <img className="img-fluid"
                         src={`${imageFolderPath}${pictureData.id}\\thumbnail.jpg`}
                         alt="logo" />
-                    <Button onClick={(e) => generateThumbnail(pictureData.id).then(() => alert('Generiert!'))}>Generieren</Button>
+                    <Button onClick={(e) => generateThumbnail(pictureData.id)}>Generieren</Button>
                 </Form.Group>
                 <hr>
                 </hr>
@@ -236,6 +237,7 @@ export function EditPicture(props) {
                         suggestions={suggestions}
                         minQueryLength="1"
                         allowUnique="true"
+                        placeholder="Neues Tag hinzufügen"
                         autocomplete
                     />
                 </div>
@@ -247,8 +249,8 @@ export function EditPicture(props) {
                 <Button onClick={() => addExifPropertyInput()} >+</Button>
                 <br></br>
                 <br></br>
-                <Button variant="success" size="lg" block="block" type="submit">Save</Button>
-                <Link to={"/PictureOverview"} style={{ margin: 10 + 'px' }} className="btn btn-danger btn-block">Cancel</Link>
+                <Button variant="success" size="lg" block="block" type="submit">Speichern</Button>
+                <Link to={"/pictureOverview"} style={{ margin: 10 + 'px' }} className="btn btn-danger btn-block">Abbrechen</Link>
             </Form>
 
         </div>

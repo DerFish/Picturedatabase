@@ -172,6 +172,7 @@ export function GalleryPage() {
                     suggestions={suggestions}
                     minQueryLength="0"
                     allowUnique="true"
+                    placeholder="Neues Tag hinzufügen"
                     autocomplete
                 />
             </div>

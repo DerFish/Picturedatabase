@@ -10,6 +10,7 @@ export const generateGreyscale = async (id) => {
                     body: JSON.stringify({ id: id })
                 }
             ).then((resp) => {
+                window.location.reload();
                 return resp;
             })
         });
@@ -25,6 +26,7 @@ export const generateThumbnail = async (id) => {
                     body: JSON.stringify({ id: id })
                 }
             ).then((resp) => {
+                window.location.reload();
                 return resp;
             })
         });
@@ -40,6 +42,7 @@ export const deletePicture = (id) => {
                     body: JSON.stringify({ id: id })
                 }
             ).then((resp) => {
+                window.location.reload();
                 return resp;
             })
         });
